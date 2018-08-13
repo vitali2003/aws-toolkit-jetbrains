@@ -3,6 +3,8 @@ package software.aws.toolkits.core.region
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.equalTo
 import org.junit.Test
+import software.amazon.awssdk.regions.Region
+import software.amazon.awssdk.services.s3.S3Client
 import software.aws.toolkits.resources.BundledResources
 
 class PartitionParserTest {
@@ -18,5 +20,11 @@ class PartitionParserTest {
         assertThat(iam.isGlobal, equalTo(true))
         assertThat(s3.isGlobal, equalTo(false))
         assertThat(lambda.isGlobal, equalTo(false))
+    }
+
+    @Test
+    fun canIListBuckets() {
+        val client = S3Client.builder().region(Region.US_WEST_2).build()
+        client.listBuckets()
     }
 }
