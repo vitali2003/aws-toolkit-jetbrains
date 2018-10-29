@@ -13,7 +13,6 @@ import com.intellij.openapi.ui.ValidationInfo
 import org.intellij.lang.annotations.Language
 import org.jetbrains.annotations.TestOnly
 import software.amazon.awssdk.services.iam.IamClient
-import software.aws.toolkits.jetbrains.services.lambda.upload.IamRole
 import software.aws.toolkits.jetbrains.utils.ui.formatAndSet
 import software.aws.toolkits.resources.message
 import java.awt.Component

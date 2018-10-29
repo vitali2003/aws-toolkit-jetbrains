@@ -7,6 +7,7 @@ import com.intellij.ide.IdeBundle
 import com.intellij.ide.projectView.PresentationData
 import com.intellij.ide.util.treeView.AbstractTreeNode
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.project.Project
 import com.intellij.ui.LoadingNode
 import com.intellij.ui.SimpleTextAttributes
@@ -68,6 +69,7 @@ abstract class AwsExplorerServiceRootNode(project: Project, value: String) :
     fun loadData(paginationToken: String? = null): Collection<AwsExplorerNode<*>> = try {
         loadResources(paginationToken)
     } catch (e: Exception) {
+        LOG.warn("Failed to load explorer nodes", e)
         // Return the ErrorNode as the single Node of the list
         listOf(AwsExplorerErrorNode(project!!, e))
     }
@@ -75,6 +77,10 @@ abstract class AwsExplorerServiceRootNode(project: Project, value: String) :
     abstract fun serviceName(): String
 
     protected abstract fun loadResources(paginationToken: String? = null): Collection<AwsExplorerNode<*>>
+
+    private companion object {
+        private val LOG = Logger.getInstance(AwsExplorerServiceRootNode::class.java)
+    }
 }
 
 abstract class AwsExplorerResourceNode<T>(
